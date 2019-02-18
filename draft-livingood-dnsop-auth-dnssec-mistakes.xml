@@ -11,6 +11,7 @@
 		<!ENTITY RFC5155 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5155.xml">
 		<!ENTITY RFC5914 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5914.xml">
 		<!ENTITY RFC6781 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6781.xml">
+		<!ENTITY RFC7646 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7646.xml">
 		]>
 		
 			 
@@ -111,10 +112,10 @@
 			processes. This sometimes results in DNSSEC-validation failures, for which 
 			operators of validating resolvers are often blamed. This is similar to other, 
 			non-DNSSEC-related authoritative DNS errors, for which individual recursive DNS 
-			operators are sometimes incorrectly blamed. This documents makes clear that 
+			operators are sometimes incorrectly blamed. This document makes clear that 
 			responsibility for any and all authoritative DNS failures rests squarely with 
 			authoritative domain name operators, who are the only party that can 
-			properly rectify these global DNS issues.</t>
+			properly maintain their domain names and rectify associated authoritative DNS errors.</t>
 				
     		</abstract>
 			
@@ -143,24 +144,26 @@
 			operators are sometimes incorrectly blamed. This documents makes clear that 
 			responsibility for any and all authoritative DNS failures rests squarely with 
 			authoritative domain name operators, who are the only party that can 
-			properly rectify these global DNS issues.</t>
+			properly maintain their domain names and rectify associated authoritative DNS errors.</t>
 				
 			<t>Operators of DNS recursive resolvers, including Internet Service Providers (ISPs) and 
 				cloud-based DNS resolvers, occasionally observe domains incorrectly managing 
 				DNSSEC-related resource records. This mismanagement triggers DNSSEC validation failures, 
 				and then causes large numbers of end users to be unable to reach a domain.
 				Similarly, errors in non-DNSSEC-related authoritative DNS resource records result in 
-				failures, from NXDOMAIN responses to outdated or unreachable hosts. </t> 
+				failures, from NXDOMAIN responses to valid responses containing outdated 
+				or unreachable hosts. </t> 
 				
 			<t>Many end users, as well as reporters, policymakers, regulators, and others often 
-				interpret this as a failure of their DNS servers. Rather than seeing this as 
+				interpret this as a failure of particular recursive DNS resolvers. Rather than seeing this as 
 				a failure on the part of the domain they wanted to reach, they may themselves 
 				and/or recommend to others that they switch to a 
 				non-validating resolver (which reduces their security), switch to a different DNS 
 				resolver (which can reduce non-DNS application layer performance), or contact their 
 				ISP or DNS resolver operator to complain.</t>
 				
-			<t>This document makes clear, however, that responsibility for these failures rests squarely 
+			<t>This document makes clear, however, that responsibility for these types of 
+				authoritative DNS failures rests squarely 
 				with authoritative domain name operators, as noted in 
 				<xref target='Responsibility-for-Failures'/>.</t>
 				
@@ -168,14 +171,16 @@
 			
 			<section title='Domain Validation Failures' anchor='Domain-Validation-Failures' toc='include'>
 			<t>A domain name can fail validation for two general reasons, a legitimate security failure such 
-				as due to an attack or compromise of some sort, or as a result of misconfiguration on 
+				as due to an attack or compromise of some sort, or as a result of misconfiguration or 
+				other error or omission on 
 				the part of an domain administrator. As domains transition to DNSSEC the most likely 
-				reason for a validation failure will be due to misconfiguration. Thus, domain 
+				reason for a validation failure during and shortly after the transition is likely due 
+				to misconfiguration. Thus, domain 
 				administrators should be sure to read <xref target="RFC6781"/> in full. They should also 
 				pay special attention to Section 4.2, pertaining to key rollovers, which appears to be the 
-				cause of many recent validation failures.</t>
+				cause of many validation failures.</t>
 			
-			<t>In one recent example <xref target="DNSSEC-Validation-Failure-Analysis"/>, a specific domain 
+			<t>In one example <xref target="DNSSEC-Validation-Failure-Analysis"/>, a specific domain 
 				name failed to validate. An investigation revealed that the domain's administrators 
 				performed a Key Signing Key (KSK) rollover by (1) generating a new key and (2) signing 
 				the domain with the new key. However, they did not use a double-signing procedure for the 
@@ -190,7 +195,15 @@
 				the chain of trust for DNSSEC from the parent zone to the child zone - in this case 
 				between TLD and domain name.)</t> 
 				
-			<t>GIVE NON-DNSSEC EXAMPLE</t>
+			<t>In a non-DNSSEC-related example, a domain administrator may add a new host with an A and AAAA 
+				resource record pointing the name to the IP addresses of new servers with a Time To Live 
+				(TTL) of two days. But they may turn down the old servers with a similar two day TTL 
+				before that TTL has expired. As a result, some number of users are likely to 
+				continue to attempt to connect to the old IP addresses that are no longer reachable. 
+				While a best practice is to reduce the TTL to a matter of seconds or minutes before 
+				such a shift, many domains continue to forget the impact that the TTL can have, or 
+				make countless other errors in ther domain name, server, and network administration 
+				that negatively impacts domain name-based reachability.</t>
 			
 			</section>
             
@@ -277,6 +290,7 @@
 				&RFC5155;
 				&RFC5914;
 				&RFC6781;
+				&RFC7646;
 			</references>
 			
 			<references title='Informative References'>
