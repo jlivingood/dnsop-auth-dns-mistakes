@@ -9,10 +9,14 @@
 		<!ENTITY RFC4398 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4398.xml">
 		<!ENTITY RFC4509 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4509.xml">
 		<!ENTITY RFC5155 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5155.xml">
-		<!ENTITY RFC5914 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5914.xml">
 		<!ENTITY RFC6781 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6781.xml">
 		<!ENTITY RFC7646 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7646.xml">
-		<!ENTITY I-D.draft-livingood-dnsop-dont-switch-resolvers SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-livingood-dnsop-dont-switch-resolvers-03.xml">
+		
+		
+		<!--<?rfc include="reference.I-D.draft-livingood-dnsop-dont-switch-resolvers-03.xml"?>-->
+		
+		<!--<!ENTITY I-D.draft-livingood-dnsop-dont-switch-resolvers SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-livingood-dnsop-dont-switch-resolvers-04.xml">-->
+		
 		]>
 		
 			 
@@ -51,7 +55,7 @@
 		
 		<!-- END REFERENCE PROCESSING -->
 		
-    <rfc ipr='trust200902' docName='draft-livingood-dnsop-auth-dnssec-mistakes-03' category='info'>
+    <rfc ipr='trust200902' docName='draft-livingood-dnsop-auth-dnssec-mistakes-04' category='info'>
   	<!-- category values: std, bcp, info, exp, and historic
      ipr values: full3978, noModification3978, noDerivatives3978
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -71,12 +75,7 @@
 					Comcast 
 					</organization>
 					<address>
-						<postal>
-        					<city>Philadelphia</city> 
-        					<country>US</country>
-						</postal>
     					<email>jason_livingood@comcast.com</email>
-    					<uri>http://www.comcast.com</uri>
 					</address>
 				<!-- author role='editor' is an optional value here -->
 				</author>
@@ -203,7 +202,7 @@
 				continue to attempt to connect to the old IP addresses that are no longer reachable. 
 				While a best practice is to reduce the TTL to a matter of seconds or minutes before 
 				such a shift, many domains continue to forget the impact that the TTL can have, or 
-				make countless other errors in ther domain name, server, and network administration 
+				make countless other errors in their domain name, server, and network administration 
 				that negatively impacts domain name-based reachability.</t>
 			
 			</section>
@@ -238,7 +237,7 @@
 			<t>Any assistance or mitigation responses undertaken by other parties to mitigate the 
 				misconfiguration of a domain name by a domain owner and/or administrator, especially operators 
 				of DNS recursive resolvers, are optional and at the pleasure of those parties. This can 
-		    		the use of a Negative Trust Anchor <xref="RFC7646"/> and/or clearing the 
+		    		the use of a Negative Trust Anchor <xref target="RFC7646"/> and/or clearing the 
 		    		cache in particular DNS resolvers.</t>
             </section>
             
@@ -262,8 +261,9 @@
 			authoritative DNS issue and then improving their processes and tools in the future.</t> 
 			
 		<t>During the period of time that their domain cannot be resolved due to a DNSSEC-related mistake, 
-			they SHOULD NOT encourage end users to switch to non-validating resolvers 
-			<xref target="I-D.draft-livingood-dnsop-dont-switch-resolvers"/>.</t>
+			they SHOULD NOT encourage end users to switch to non-validating resolvers [I-D.draft-livingood-dnsop-dont-switch-resolvers]
+			<!--<xref target="refs.I-D.draft-livingood-dnsop-dont-switch-resolvers-03.xml"/>-->.</t>
+           		</section>
 	  	
             	<section title='Privacy Considerations' anchor='Privacy-Considerations' toc='include'>            	
             	<t>In the case of a DNSSEC validation failure, if an end user changes to a non-validating resolver they 
@@ -274,12 +274,13 @@
 			originally intended.</t>
 				
 		<t>As a result, in order to protect their privacy, users SHOULD NOT switch to a non-validating 
-			resolver when a DNSSEC validation failure occurs.</t>
+			resolver when a DNSSEC validation failure occurs [I-D.draft-livingood-dnsop-dont-switch-resolvers]<!--<xref target="refs.I-D.draft-livingood-dnsop-dont-switch-resolvers-03.xml"/>-->.</t>
             	</section>
             	
             	<section title='IANA Considerations' anchor='IANA-Considerations' toc='include'>
             	<t>There are no IANA considerations in this document.</t>
         		</section>
+        		
            	</section>
             
 			<section title='Acknowledgements' toc='include'>
@@ -302,7 +303,6 @@
 				&RFC4398;
 				&RFC4509;
 				&RFC5155;
-				&RFC5914;
 				&RFC6781;
 				&RFC7646;
 			</references>
@@ -311,7 +311,8 @@
 				
 				
 				
-				&I-D.draft-livingood-dnsop-dont-switch-resolvers;
+				<?rfc include="reference.I-D.draft-livingood-dnsop-dont-switch-resolvers-03.xml"?>
+				<!--&I-D.draft-livingood-dnsop-dont-switch-resolvers;-->
 			
 					<reference anchor="DNSSEC-Validation-Failure-Analysis" target="http://www.dnssec.comcast.net/DNSSEC_Validation_Failure_NASAGOV_20120118_FINAL.pdf">
        					<front>
@@ -347,12 +348,12 @@
      		<t>WG-00: Renamed at request of DNSOP co-chairs</t>
      		<t>WG-01: Updated doc to keep it from expiring</t>
      		<t>WG-02: Removed RFC 2119 reference in XML</t>
-     		<t>WG-03: Refreshed draft and broadened to all auth issues, not just DNSSEC.</t>
+     		<t>WG-03 to 04: Refreshed draft and broadened to all auth issues, not just DNSSEC.</t>
 		</section>
 
 		<section title='Open Issues'>
 			<t>[RFC Editor: This section is to be removed before publication]</t>
-			<t>No open issues at this time</t>
+			<t>Fix I-D xref</t>
 		</section>
 
 	</back>
