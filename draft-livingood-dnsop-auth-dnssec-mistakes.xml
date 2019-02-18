@@ -12,6 +12,7 @@
 		<!ENTITY RFC5914 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5914.xml">
 		<!ENTITY RFC6781 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6781.xml">
 		<!ENTITY RFC7646 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7646.xml">
+		<!ENTITY I-D.draft-livingood-dnsop-dont-switch-resolvers SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-livingood-dnsop-dont-switch-resolvers-03.xml">
 		]>
 		
 			 
@@ -208,31 +209,37 @@
 			</section>
             
             <section title='Responsibility for Failures' anchor='Responsibility-for-Failures' toc='include'>
-			<t>A domain administrator is solely and completely responsible for managing their domain 
-				name(s) and DNS resource records. This includes complete responsibility for the 
-				correctness of those resource records, the proper functioning of their 
+			<t>An authoritative domain owner is solely and completely responsible for 
+				managing their domain name(s) and associated DNS resource records. 
+				This includes complete responsibility for the correctness of those resource 
+				records, the proper functioning and reachability of their 
 				authoritative DNS servers, and the correctness of DNS records linking their domain 
 				to a top-level domain (TLD) or other higher level domain. The domain owner is also 
 				responsible for selection of the authoritative domain administrator, operator, or 
 				service provider. Thus, even in cases where some error may be introduced by a third 
 				party, whether that is due to an authoritative server software vendor, software 
-				tools vendor, domain name registrar, or other organization, these are all parties 
-				that the domain administrator has selected and is responsible for managing 
+				tools vendor, domain name registrar, Content Delivery Network (CDN), or other 
+				organization, these are all parties 
+				that the domain owner has selected and is responsible for managing 
 				successfully.</t>
 			
 			<t>There are some cases where the domain administrator is different than the domain owner. 
 				In those cases, a domain owner has delegated operational responsibility to the 
-				domain administrator. So no matter whether a domain owner is also the domain 
-				administrator or not, the domain administrator is nevertheless operationally 
-				responsible for the proper configuration operation of the domain.</t>
+				domain administrator (and that domain administrator may further delegate 
+				some sub-domains and/or records to another party, such as a CDN). So no matter 
+				whether a domain owner is also the domain administrator or not, the domain owner 
+				and domain administrator are nevertheless operationally responsible for the 
+				proper configuration and operation of the domain name .</t>
 			
-			<t>So in the case of a domain name failing to successfully validate, when this is due to 
+			<t>In the case of a domain name failing DNSSEC validation, even when this is due to 
 				a misconfiguration of the domain, that is the sole responsibility of the domain 
-				administrator.</t>
+				owner.</t>
 			
 			<t>Any assistance or mitigation responses undertaken by other parties to mitigate the 
-				misconfiguration of a domain name by a domain administrator, especially operators 
-				of DNS recursive resolvers, are optional and at the pleasure of those parties.</t>
+				misconfiguration of a domain name by a domain owner and/or administrator, especially operators 
+				of DNS recursive resolvers, are optional and at the pleasure of those parties. This can 
+		    		the use of a Negative Trust Anchor <xref="RFC7646"/> and/or clearing the 
+		    		cache in particular DNS resolvers.</t>
             </section>
             
             <section title='Comparison to Other DNS Misconfigurations' anchor='Comparison-to-Other-DNS-Misconfigurations' toc='include'>
@@ -241,22 +248,25 @@
 				correctly. ISPs or other DNS recursive resolver operators cannot and should not 
 				correct misconfigured A, CNAME, MX, or other resource records of domains for 
 				which they are not authoritative. Expecting non-authoritative entities to protect 
-				domain administrators from any misconfiguration of resource records is therefore 
-				unrealistic and unreasonable, and in the long-term is harmful to the delegated 
-				design of the DNS and could lead to extensive operational instability and/or 
-				variation.</t>
+				domain owners and administrators from any misconfiguration of resource records 
+				is therefore unrealistic and unreasonable, does not scale well, and is strongly 
+				contrary to the delegated design of the DNS and could lead to extensive 
+				operational instability and/or variation.</t>
             </section>
             
             <section title='Other Considerations' anchor='Other-Considerations' toc='include'>
-		    
-		    
-		    <!-- Authoritative DNS operators should focus on improving these processes 
-			and establishing a high level of quality in their work. List some common failure examples. Such as
-			domain hijacking, etc.
-			-->
            		
            		<section title='Security Considerations' anchor='Security-Considerations' toc='include'>
-            	<t>Authoritative domain name operators and domain name owners, in the case of DNSSEC-related mistakes that cause validation failures to occur, should focus on correcting the issue and then improving their processes and tools in the future. During the period of time that their domain cannot be resolved due to a DNSSEC-related mistake, they should not encourage end users to switch to non-validating resolvers, as the use of a non-validating DNS recursive resolver has comparatively less security capabilities than a validating resolver, since one implements DNS Security Extensions and one does not. In addition, if an end user changes to a non-validating resolver they may subject themselves to increased security risks and threats against which DNS Security Extensions may have provided protection.</t>
+            	<t>Authoritative domain name owners and/or administrators, in the case of DNSSEC-related 
+			mistakes that cause validation failures to occur, should focus on correcting the 
+			issue and then improving their processes and tools in the future. During the period of 
+			time that their domain cannot be resolved due to a DNSSEC-related mistake, they SHOULD NOT  
+			encourage end users to switch to non-validating resolvers, as the use of a non-validating 
+			DNS recursive resolver has comparatively less security capabilities than a validating 
+			resolver, since one implements DNS Security Extensions and one does not. In addition, 
+			if an end user changes to a non-validating resolver they may subject themselves to 
+			increased security risks and threats against which DNS Security Extensions may have 
+			provided protection.</t>
     			</section>
             	
             	<section title='Privacy Considerations' anchor='Privacy-Considerations' toc='include'>
@@ -294,6 +304,10 @@
 			</references>
 			
 			<references title='Informative References'>
+				
+				
+				
+				&I-D.draft-livingood-dnsop-dont-switch-resolvers;
 			
 					<reference anchor="DNSSEC-Validation-Failure-Analysis" target="http://www.dnssec.comcast.net/DNSSEC_Validation_Failure_NASAGOV_20120118_FINAL.pdf">
        					<front>
