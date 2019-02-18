@@ -49,7 +49,7 @@
 		
 		<!-- END REFERENCE PROCESSING -->
 		
-    <rfc ipr='trust200902' docName='draft-livingood-dnsop-auth-dnssec-mistakes-04' category='info'>
+    <rfc ipr='trust200902' docName='draft-livingood-dnsop-auth-dnssec-mistakes-03' category='info'>
   	<!-- category values: std, bcp, info, exp, and historic
      ipr values: full3978, noModification3978, noDerivatives3978
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -315,8 +315,7 @@
      		<t>WG-00: Renamed at request of DNSOP co-chairs</t>
      		<t>WG-01: Updated doc to keep it from expiring</t>
      		<t>WG-02: Removed RFC 2119 reference in XML</t>
-     		<t>WG-03: I should really work on this draft soon</t>
-		<t>WG-04: Refreshed draft and broadened to all auth issues, not just DNSSEC.</t>
+     		<t>WG-03: Refreshed draft and broadened to all auth issues, not just DNSSEC.</t>
 		</section>
 
 		<section title='Open Issues'>
