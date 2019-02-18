@@ -195,24 +195,52 @@
 			</section>
             
             <section title='Responsibility for Failures' anchor='Responsibility-for-Failures' toc='include'>
-			<t>A domain administrator is solely and completely responsible for managing their domain name(s) and DNS resource records. This includes complete responsibility for the correctness of those resource records, the proper functioning of their authoritative DNS servers, and the correctness of DNS records linking their domain to a top-level domain (TLD) or other higher level domain. The domain owner is also responsible for selection of the authoritative domain administrator, operator, or service provider. Thus, even in cases where some error may be introduced by a third party, whether that is due to an authoritative server software vendor, software tools vendor, domain name registrar, or other organization, these are all parties that the domain administrator has selected and is responsible for managing successfully.</t>
+			<t>A domain administrator is solely and completely responsible for managing their domain 
+				name(s) and DNS resource records. This includes complete responsibility for the 
+				correctness of those resource records, the proper functioning of their 
+				authoritative DNS servers, and the correctness of DNS records linking their domain 
+				to a top-level domain (TLD) or other higher level domain. The domain owner is also 
+				responsible for selection of the authoritative domain administrator, operator, or 
+				service provider. Thus, even in cases where some error may be introduced by a third 
+				party, whether that is due to an authoritative server software vendor, software 
+				tools vendor, domain name registrar, or other organization, these are all parties 
+				that the domain administrator has selected and is responsible for managing 
+				successfully.</t>
 			
-			<t>There are some cases where the domain administrator is different than the domain owner. In those cases, a domain owner has delegated operational responsibility to the domain administrator. So no matter whether a domain owner is also the domain administrator or not, the domain administrator is nevertheless operationally responsible for the proper configuration operation of the domain.</t>
+			<t>There are some cases where the domain administrator is different than the domain owner. 
+				In those cases, a domain owner has delegated operational responsibility to the 
+				domain administrator. So no matter whether a domain owner is also the domain 
+				administrator or not, the domain administrator is nevertheless operationally 
+				responsible for the proper configuration operation of the domain.</t>
 			
-			<t>So in the case of a domain name failing to successfully validate, when this is due to a misconfiguration of the domain, that is the sole responsibility of the domain administrator.</t>
+			<t>So in the case of a domain name failing to successfully validate, when this is due to 
+				a misconfiguration of the domain, that is the sole responsibility of the domain 
+				administrator.</t>
 			
-			<t>Any assistance or mitigation responses undertaken by other parties to mitigate the misconfiguration of a domain name by a domain administrator, especially operators of DNS recursive resolvers, are optional and at the pleasure of those parties.</t>
+			<t>Any assistance or mitigation responses undertaken by other parties to mitigate the 
+				misconfiguration of a domain name by a domain administrator, especially operators 
+				of DNS recursive resolvers, are optional and at the pleasure of those parties.</t>
             </section>
             
             <section title='Comparison to Other DNS Misconfigurations' anchor='Comparison-to-Other-DNS-Misconfigurations' toc='include'>
-			<t>As noted in <xref target="Responsibility-for-Failures"/> domain administrators are ultimately responsible for managing and ensuring their DNS records are configured correctly. ISPs or other DNS recursive resolver operators cannot and should not correct misconfigured A, CNAME, MX, or other resource records of domains for which they are not authoritative. Expecting non-authoritative entities to protect domain administrators from any misconfiguration of resource records is therefore unrealistic and unreasonable, and in the long-term is harmful to the delegated design of the DNS and could lead to extensive operational instability and/or variation.</t>
+			<t>As noted in <xref target="Responsibility-for-Failures"/> domain administrators are 
+				ultimately responsible for managing and ensuring their DNS records are configured 
+				correctly. ISPs or other DNS recursive resolver operators cannot and should not 
+				correct misconfigured A, CNAME, MX, or other resource records of domains for 
+				which they are not authoritative. Expecting non-authoritative entities to protect 
+				domain administrators from any misconfiguration of resource records is therefore 
+				unrealistic and unreasonable, and in the long-term is harmful to the delegated 
+				design of the DNS and could lead to extensive operational instability and/or 
+				variation.</t>
             </section>
             
             <section title='Other Considerations' anchor='Other-Considerations' toc='include'>
 		    
 		    
 		    <!-- Authoritative DNS operators should focus on improving these processes 
-			and establishing a high level of quality in their work. </t> -->
+			and establishing a high level of quality in their work. List some common failure examples. Such as
+			domain hijacking, etc.
+			-->
            		
            		<section title='Security Considerations' anchor='Security-Considerations' toc='include'>
             	<t>Authoritative domain name operators and domain name owners, in the case of DNSSEC-related mistakes that cause validation failures to occur, should focus on correcting the issue and then improving their processes and tools in the future. During the period of time that their domain cannot be resolved due to a DNSSEC-related mistake, they should not encourage end users to switch to non-validating resolvers, as the use of a non-validating DNS recursive resolver has comparatively less security capabilities than a validating resolver, since one implements DNS Security Extensions and one does not. In addition, if an end user changes to a non-validating resolver they may subject themselves to increased security risks and threats against which DNS Security Extensions may have provided protection.</t>
