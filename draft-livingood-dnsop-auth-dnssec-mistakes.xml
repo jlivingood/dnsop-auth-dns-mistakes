@@ -58,7 +58,7 @@
 			<!-- FRONT SECTION -->
     	<front>
 				<title abbrev='Responsibility for DNSSEC Mistakes'>
-				Responsibility for Authoritative DNSSEC Mistakes 
+				Responsibility for Authoritative DNS and DNSSEC Mistakes 
 				</title>
 				
 		    <!-- add role='editor' attribute to author tag below for the editors if appropriate -->
@@ -85,24 +85,37 @@
 			<!-- META-DATA DECLARATIONS -->
     		<area>Operations and Management Area</area>
 				
-			<!-- WG name at the upperleft corner of the doc; 'Internet Engineering Task Force' is fine for individual submissions.  -->
+			<!-- WG name at the upperleft corner of the doc; 'Internet Engineering Task Force' 
+			is fine for individual submissions.  -->
     		<workgroup>Domain Name System Operations</workgroup>
     
-		    <!-- Keywords will be incorporated into HTML output files in a meta tag but they have no effect on text or nroff output. If you submit your draft to the RFC Editor, the keywords will be used for the search engine. -->
+		    <!-- Keywords will be incorporated into HTML output files in a meta tag but they 
+			have no effect on text or nroff output. If you submit your draft to the RFC Editor, 
+			the keywords will be used for the search engine. -->
 			
 			<keyword>RFC</keyword>
 			<keyword>Request for Comments</keyword>
 			<keyword>I-D</keyword>
 			<keyword>Internet-Draft</keyword>
-    		<keyword>Comcast</keyword>
-    		<keyword>ISP</keyword>
-    		<keyword>Internet Service Provider</keyword>
-    		<keyword>DNS</keyword>
-    		<keyword>DNSSEC</keyword>
-    		<keyword>Negative Trust Anchors</keyword>
+    			<keyword>Comcast</keyword>
+    			<keyword>ISP</keyword>
+    			<keyword>Internet Service Provider</keyword>
+    			<keyword>DNS</keyword>
+    			<keyword>DNSSEC</keyword>
+    			<keyword>Negative Trust Anchors</keyword>
 				
         	<abstract>
-        	<t>DNS Security Extensions (DNSSEC) is now entering widespread deployment. However, domain signing tools and processes are not yet as mature and reliable as is the case for non-DNSSEC-related domain administration tools and processes. Authoritative DNS operators should focus on improving these processes and establishing a high level of quality in their work.</t>
+        	<t>DNS Security Extensions (DNSSEC) validation by recursive DNS resolvers has been deployed 
+			at scale. However, domain signing tools and processes are not yet as mature and 
+			reliable as is the case for non-DNSSEC-related domain administration tools and 
+			processes. This sometimes results in DNSSEC-validation failures, for which 
+			operators of validating resolvers are often blamed. This is similar to other, 
+			non-DNSSEC-related authoritative DNS errors, for which individual recursive DNS 
+			operators are sometimes incorrectly blamed. This documents makes clear that 
+			responsibility for any and all authoritative DNS failures rests squarely with 
+			authoritative domain name operators, who are the only party that can 
+			properly rectify these global DNS issues.</t>
+				
     		</abstract>
 			
 			<!-- END META-DATA DECLARATIONS -->
@@ -114,18 +127,70 @@
 			<middle>
 
 			<section anchor='intro' title='Introduction' toc='include'>
-				<t>The Domain Name System (DNS), DNS Security Extensions (DNSSEC), and related operational practices are defined extensively <xref target='RFC1034'/> <xref target='RFC1035'/> <xref target='RFC4033'/> <xref target='RFC4034'/> <xref target='RFC4035'/> <xref target='RFC4398'/> <xref target='RFC4509'/> <xref target='RFC6781'/> <xref target='RFC5155'/>.</t>
-								
-				<t>DNSSEC has now entered widespread deployment. However, domain signing tools and processes are not yet as mature and reliable as is the case for non-DNSSEC-related domain administration tools and processes. As a result, operators of DNS recursive resolvers, such as Internet Service Providers (ISPs), occasionally observe domains incorrectly managing DNSSEC-related resource records. This mismanagement triggers DNSSEC validation failures, and then causes large numbers of end users to be unable to reach a domain. Many end users tend interpret this as a failure of their DNS servers, and may switch to a non-validating resolver (reducing their security) or contact their ISP to complain, rather than seeing this as a failure on the part of the domain they wanted to reach.</t>
 				
-				<t>This document makes clear, however, that responsibility for these failures rests squarely with authoritative domain name operators, as noted in <xref target='Responsibility-for-Failures'/>.</t>
+			<t>The Domain Name System (DNS), DNS Security Extensions (DNSSEC), and related operational 
+				practices are defined extensively <xref target='RFC1034'/> <xref target='RFC1035'/> 
+				<xref target='RFC4033'/> <xref target='RFC4034'/> <xref target='RFC4035'/> 
+				<xref target='RFC4398'/> <xref target='RFC4509'/> <xref target='RFC6781'/> 
+				<xref target='RFC5155'/>.</t>
+								
+			<t>DNS Security Extensions (DNSSEC) validation by recursive DNS resolvers has been deployed 
+			at scale. However, domain signing tools and processes are not yet as mature and 
+			reliable as is the case for non-DNSSEC-related domain administration tools and 
+			processes. This sometimes results in DNSSEC-validation failures, for which 
+			operators of validating resolvers are often blamed. This is similar to other, 
+			non-DNSSEC-related authoritative DNS errors, for which individual recursive DNS 
+			operators are sometimes incorrectly blamed. This documents makes clear that 
+			responsibility for any and all authoritative DNS failures rests squarely with 
+			authoritative domain name operators, who are the only party that can 
+			properly rectify these global DNS issues.</t>
+				
+			<t>Operators of DNS recursive resolvers, including Internet Service Providers (ISPs) and 
+				cloud-based DNS resolvers, occasionally observe domains incorrectly managing 
+				DNSSEC-related resource records. This mismanagement triggers DNSSEC validation failures, 
+				and then causes large numbers of end users to be unable to reach a domain.
+				Similarly, errors in non-DNSSEC-related authoritative DNS resource records result in 
+				failures, from NXDOMAIN responses to outdated or unreachable hosts. </t> 
+				
+			<t>Many end users, as well as reporters, policymakers, regulators, and others often 
+				interpret this as a failure of their DNS servers. Rather than seeing this as 
+				a failure on the part of the domain they wanted to reach, they may themselves 
+				and/or recommend to others that they switch to a 
+				non-validating resolver (which reduces their security), switch to a different DNS 
+				resolver (which can reduce non-DNS application layer performance), or contact their 
+				ISP or DNS resolver operator to complain.</t>
+				
+			<t>This document makes clear, however, that responsibility for these failures rests squarely 
+				with authoritative domain name operators, as noted in 
+				<xref target='Responsibility-for-Failures'/>.</t>
 				
 			</section>
 			
 			<section title='Domain Validation Failures' anchor='Domain-Validation-Failures' toc='include'>
-			<t>A domain name can fail validation for two general reasons, a legitimate security failure such as due to an attack or compromise of some sort, or as a result of misconfiguration on the part of an domain administrator. As domains transition to DNSSEC the most likely reason for a validation failure will be due to misconfiguration. Thus, domain administrators should be sure to read <xref target="RFC6781"/> in full. They should also pay special attention to Section 4.2, pertaining to key rollovers, which appears to be the cause of many recent validation failures.</t>
+			<t>A domain name can fail validation for two general reasons, a legitimate security failure such 
+				as due to an attack or compromise of some sort, or as a result of misconfiguration on 
+				the part of an domain administrator. As domains transition to DNSSEC the most likely 
+				reason for a validation failure will be due to misconfiguration. Thus, domain 
+				administrators should be sure to read <xref target="RFC6781"/> in full. They should also 
+				pay special attention to Section 4.2, pertaining to key rollovers, which appears to be the 
+				cause of many recent validation failures.</t>
 			
-			<t>In one recent example <xref target="DNSSEC-Validation-Failure-Analysis"/>, a specific domain name failed to validate. An investigation revealed that the domain's administrators performed a Key Signing Key (KSK) rollover by (1) generating a new key and (2) signing the domain with the new key. However, they did not use a double-signing procedure for the KSK and a pre-publish procedure for the ZSK. Double-signing refers to signing a zone with two KSKs and then updating the parent zone with the new DS record so that both keys are valid at the same time. This meant that the domain name was signed with the new KSK, but it was not double-signed with the old KSK. So, the new key was used for signing the zone but the old key was not. As a result, the domain could not be trusted and returned an error when trying to reach the domain. Thus, the domain was in a situation where the DNSSEC chain of trust was broken because the Delegation Signer (DS) record pointed to the old KSK, which was no longer used for signing the zone. (A DS record provides a link in the chain of trust for DNSSEC from the parent zone to the child zone - in this case between TLD and domain name.)</t> 
+			<t>In one recent example <xref target="DNSSEC-Validation-Failure-Analysis"/>, a specific domain 
+				name failed to validate. An investigation revealed that the domain's administrators 
+				performed a Key Signing Key (KSK) rollover by (1) generating a new key and (2) signing 
+				the domain with the new key. However, they did not use a double-signing procedure for the 
+				KSK and a pre-publish procedure for the ZSK. Double-signing refers to signing a zone with 
+				two KSKs and then updating the parent zone with the new DS record so that both keys are 
+				valid at the same time. This meant that the domain name was signed with the new KSK, but 
+				it was not double-signed with the old KSK. So, the new key was used for signing the zone 
+				but the old key was not. As a result, the domain could not be trusted and returned an error 
+				when trying to reach the domain. Thus, the domain was in a situation where the DNSSEC 
+				chain of trust was broken because the Delegation Signer (DS) record pointed to the old 
+				KSK, which was no longer used for signing the zone. (A DS record provides a link in 
+				the chain of trust for DNSSEC from the parent zone to the child zone - in this case 
+				between TLD and domain name.)</t> 
+				
+			<t>GIVE NON-DNSSEC EXAMPLE</t>
 			
 			</section>
             
@@ -144,6 +209,10 @@
             </section>
             
             <section title='Other Considerations' anchor='Other-Considerations' toc='include'>
+		    
+		    
+		    <!-- Authoritative DNS operators should focus on improving these processes 
+			and establishing a high level of quality in their work. </t> -->
            		
            		<section title='Security Considerations' anchor='Security-Considerations' toc='include'>
             	<t>Authoritative domain name operators and domain name owners, in the case of DNSSEC-related mistakes that cause validation failures to occur, should focus on correcting the issue and then improving their processes and tools in the future. During the period of time that their domain cannot be resolved due to a DNSSEC-related mistake, they should not encourage end users to switch to non-validating resolvers, as the use of a non-validating DNS recursive resolver has comparatively less security capabilities than a validating resolver, since one implements DNS Security Extensions and one does not. In addition, if an end user changes to a non-validating resolver they may subject themselves to increased security risks and threats against which DNS Security Extensions may have provided protection.</t>
