@@ -258,19 +258,23 @@
            		
            		<section title='Security Considerations' anchor='Security-Considerations' toc='include'>
             	<t>Authoritative domain name owners and/or administrators, in the case of DNSSEC-related 
-			mistakes that cause validation failures to occur, should focus on correcting the 
-			issue and then improving their processes and tools in the future. During the period of 
-			time that their domain cannot be resolved due to a DNSSEC-related mistake, they SHOULD NOT  
-			encourage end users to switch to non-validating resolvers, as the use of a non-validating 
-			DNS recursive resolver has comparatively less security capabilities than a validating 
-			resolver, since one implements DNS Security Extensions and one does not. In addition, 
-			if an end user changes to a non-validating resolver they may subject themselves to 
-			increased security risks and threats against which DNS Security Extensions may have 
-			provided protection.</t>
-    			</section>
-            	
-            	<section title='Privacy Considerations' anchor='Privacy-Considerations' toc='include'>
-            	<t>There are no privacy considerations in this document.</t>
+			mistakes that cause validation failures to occur, should focus on correcting the immediate 
+			authoritative DNS issue and then improving their processes and tools in the future.</t> 
+			
+		<t>During the period of time that their domain cannot be resolved due to a DNSSEC-related mistake, 
+			they SHOULD NOT encourage end users to switch to non-validating resolvers 
+			<xref target="I-D.draft-livingood-dnsop-dont-switch-resolvers"/>.</t>
+	  	
+            	<section title='Privacy Considerations' anchor='Privacy-Considerations' toc='include'>            	
+            	<t>In the case of a DNSSEC validation failure, if an end user changes to a non-validating resolver they 
+			can subject themselves to increased security risks and threats against which 
+			DNSSEC may have provided protection. This can include threats to their privacy, such as 
+			by unwittingly visiting a phishing site and sharing sensitive data or other private 
+			information with a malicious party or some party other than that which was 
+			originally intended.</t>
+				
+		<t>As a result, in order to protect their privacy, users SHOULD NOT switch to a non-validating 
+			resolver when a DNSSEC validation failure occurs.</t>
             	</section>
             	
             	<section title='IANA Considerations' anchor='IANA-Considerations' toc='include'>
