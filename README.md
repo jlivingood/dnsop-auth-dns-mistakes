@@ -1,1 +1,0 @@
-# dnsop-auth-dns-mistakes
